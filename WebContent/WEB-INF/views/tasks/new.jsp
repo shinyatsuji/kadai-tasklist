@@ -5,7 +5,7 @@
 <c:param name="content">
 <h2>メッセージ新規作成ページ</h2>
 
-<form method="POST" action="${pageContext.request.contextPath}">
+<form method="POST" action="${pageContext.request.contextPath}/create">
 <c:import url="../layout/_form.jsp"/>
 </form>
 
