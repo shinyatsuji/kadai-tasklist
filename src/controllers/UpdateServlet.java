@@ -17,16 +17,16 @@ import utils.DBUtil;
 import validators.TaskValidator;
 
 /**
- * Servlet implementation class CreateServlet
+ * Servlet implementation class UpdateServlet
  */
-@WebServlet("/create")
-public class CreateServlet extends HttpServlet {
+@WebServlet("/update")
+public class UpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateServlet() {
+    public UpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,11 +36,11 @@ public class CreateServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String _token = (String) request.getParameter("_token");
+        String _token = request.getParameter("_token");
         if (_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Task task = new Task();
+            Task task = em.find(Task.class, (Integer) (request.getSession().getAttribute("task_id")));
 
             String taskName = request.getParameter("taskName");
             task.setTaskName(taskName);
@@ -49,7 +49,6 @@ public class CreateServlet extends HttpServlet {
             task.setContent(content);
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            task.setCreated_at(currentTime);
             task.setUpdated_at(currentTime);
 
             List<String> errors = TaskValidator.validate(task);
@@ -60,17 +59,19 @@ public class CreateServlet extends HttpServlet {
                 request.setAttribute("task", task);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/tasks/new.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/tasks/edit.jsp");
                 rd.forward(request, response);
             } else {
                 em.getTransaction().begin();
-                em.persist(task);
                 em.getTransaction().commit();
-                request.getSession().setAttribute("flush", "登録が完了しました。");
+                request.getSession().setAttribute("flush", "更新が完了しました。");
                 em.close();
+
+                request.getSession().removeAttribute("task_id");
 
                 response.sendRedirect(request.getContextPath() + "/index");
             }
         }
     }
+
 }

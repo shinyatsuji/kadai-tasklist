@@ -3,13 +3,13 @@
 
 <c:import url="../layout/app.jsp">
 <c:param name="content">
-<h2>メッセージ新規作成ページ</h2>
+<h2>タスク新規作成ページ</h2>
 
 <form method="POST" action="${pageContext.request.contextPath}/create">
 <c:import url="../layout/_form.jsp"/>
 </form>
 
-<p><a href="${pageContex.request.contextPath}/index">一覧</a>
+<p><a href="${pageContext.request.contextPath}/index">一覧へ戻る</a></p>
 
 </c:param>
 </c:import>
