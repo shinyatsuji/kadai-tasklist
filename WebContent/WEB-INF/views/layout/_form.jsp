@@ -9,11 +9,6 @@
 </c:forEach>
 </div>
 </c:if>
-
-<label for="title">タスク名 </label><br>
-<input type="text" name="taskName" value="${task.taskName}">
-<br><br>
-
 <label for="content">タスク内容</label><br>
 <input type="text" name="content" value="${task.content}">
 <br><br>

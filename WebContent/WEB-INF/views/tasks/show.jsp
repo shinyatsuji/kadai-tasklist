@@ -12,10 +12,6 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>タスク名</th>
-                            <td><c:out value="${task.taskName}" /></td>
-                        </tr>
-                        <tr>
                             <th>タスク内容</th>
                             <td><c:out value="${task.content}" /></td>
                         </tr>

@@ -42,9 +42,6 @@ public class UpdateServlet extends HttpServlet {
 
             Task task = em.find(Task.class, (Integer) (request.getSession().getAttribute("task_id")));
 
-            String taskName = request.getParameter("taskName");
-            task.setTaskName(taskName);
-
             String content = request.getParameter("content");
             task.setContent(content);
 
